@@ -1,5 +1,7 @@
 import { Avatar, Card, Button } from 'antd';
 import React from 'react';
+import {useDispatch} from "react-redux";
+import {logoutRequestAction} from "../reducers/user";
 
 const dummy = {
     nickname: 'testdd',
@@ -9,9 +11,11 @@ const dummy = {
     isLoggedIn: false,
 };
 
-const UserProfile = ({setIsLoggedIn}) => {
+const UserProfile = () => {
+    const dispatch=useDispatch();
     const onLogout=(()=>{
-        setIsLoggedIn(false)
+        console.log('logout')
+        dispatch(logoutRequestAction())
     })
 
     return (

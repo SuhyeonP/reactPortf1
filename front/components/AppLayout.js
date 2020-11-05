@@ -2,13 +2,17 @@ import React, {useState, useMemo, useCallback} from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Col, Input, Menu, Row } from 'antd';
+import{useSelector} from "react-redux";
+
 
 import LoginForm from './LoginForm';
 import UserProfile from './UserProfile';
 
 
 const AppLayout = ({ children }) => {
-    const [isLoggedIn,setIsLoggedIn]=useState(false);
+    const {isLoggedIn}=useSelector((state)=>state.user);
+
+
     const onChangeWord=useCallback(()=>{
         let insideWord=document.getElementById('menutem').innerText;
         if(insideWord==='Mini Game'){
@@ -31,9 +35,7 @@ const AppLayout = ({ children }) => {
                     {children}
                 </Col>
                 <Col xs={24} md={6}>
-                    {isLoggedIn
-                        ? <UserProfile setIsLoggedIn={setIsLoggedIn}/>
-                        : <LoginForm setIsLoggedIn={setIsLoggedIn}/>}
+                    {isLoggedIn ? <UserProfile/>  : <LoginForm/>}
                 </Col>
             </Row>
         </div>

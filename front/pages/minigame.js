@@ -5,7 +5,6 @@ import Link from 'next/link'
 import SkillCard from '../components/SkillCard'
 import PropTypes from 'prop-types'
 
-
 const MiniGame = () => {
     return(
         <AppLayout>
@@ -18,10 +17,6 @@ const MiniGame = () => {
                     <Link href="http://ahah12k.cafe24.com/ptp2/"target="_blank" rel="noreferrer noopener">
                         <a><h2 className="gameTitle">Find your Breath(Origin) (Only mobile)</h2></a>
                     </Link>
-                    <div className="explainPort">
-                        <h3>▼Changes to React▼</h3>
-                    </div>
-                    <Link href="/lol"><a>Change to React Breath</a></Link>
                 </div>
                 <div className="lol">
                     <Link href="http://ahah12k.cafe24.com/ptp1/" target="_blank" rel="noreferrer noopener">
@@ -29,7 +24,6 @@ const MiniGame = () => {
                     </Link>
                     <div className="explainPort">
                     </div>
-                    <h2>it will be update to React or React+Typescript</h2>
                 </div>
             </section>
         </AppLayout>
