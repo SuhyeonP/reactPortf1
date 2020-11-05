@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
-import {Button, Col, Input, Menu, Row} from 'antd';
 import Link from 'next/link'
 import SkillCard from '../components/SkillCard'
 import PropTypes from 'prop-types'
