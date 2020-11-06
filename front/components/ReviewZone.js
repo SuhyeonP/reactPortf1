@@ -13,11 +13,12 @@ const ReviewZone=()=>{
     return(
         <div>
             {id&&<ReviewWrite/>}
-            {userReview.map((x)=>{
-                return (
-                    <UserReviews key={x.id} review={x}/>
-                )
-            })}
+            <h2>개발중입니다.</h2>
+            {/*{userReview.map((x)=>{*/}
+            {/*    return (*/}
+            {/*        <UserReviews key={x.id} review={x}/>*/}
+            {/*    )*/}
+            {/*})}*/}
         </div>
     )
 }

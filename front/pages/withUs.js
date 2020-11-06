@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
 import { Button, Form, Input } from 'antd';
@@ -15,7 +15,7 @@ const withUs = () => {
     const [storeEmail,onChaneEmail]=useInput('');
     const [storeAddress,onChangeAddress]=useInput('');
     const [storePart,onChangePart]=useInput('');
-    const {signupStoreLoading}=useSelector((state)=>state.store)
+    const {signupStoreLoading,signupStoreDone}=useSelector((state)=>state.store)
     const dispatch=useDispatch()
     const [passwordError, setPasswordError] = useState(false);
     const [passwordCheck, setPasswordCheck] = useState('');
@@ -25,6 +25,11 @@ const withUs = () => {
         setPasswordCheck(e.target.value);
     },[password])
 
+    useEffect(() => {
+        if (signupStoreDone) {
+            Router.replace('/');
+        }
+    }, [signupStoreDone]);
 
     const onSubmit = useCallback(() => {
         console.log({ storeName, password ,storeEmail, storeAddress,storePart});

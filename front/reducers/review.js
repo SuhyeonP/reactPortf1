@@ -1,4 +1,6 @@
 import produce from '../util/produce';
+import shortId from "shortid";
+import faker from "faker";
 
 export const initialState={
     mainReview:[],
@@ -11,7 +13,7 @@ export const initialState={
     addReviewError:null,
     removeReviewLoading:false,
     removeReviewDone:false,
-    removeReviewError:null,
+    removeReviewError:null,//todo remove is not develop now
 }
 
 export const LOAD_REVIEWS_REQUEST='LOAD_REVIEWS_REQUEST';
@@ -40,6 +42,18 @@ const dummyPost=(data)=>({
     },
     Images:[]
 })
+
+export const dummpyReviewFaker=(number)=>Array(number).fill().map(()=>({
+    id: shortId.generate(),
+    user: {
+        id: shortId.generate(),
+        name: faker.name.findName(),
+    },
+    content: faker.lorem.paragraph(),
+    Images: [{
+        src: faker.image.image(),
+    }],
+}))
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
     switch (action.type) {

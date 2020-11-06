@@ -1,4 +1,6 @@
 import produce from '../util/produce';
+import faker from 'faker';
+import shortId from 'shortid';
 
 export const initialState={
     signupStoreLoading:false,
@@ -10,6 +12,11 @@ export const SIGNUP_STORE_REQUEST='SIGNUP_STORE_REQUEST'
 export const SIGNUP_STORE_SUCCESS='SIGNUP_STORE_SUCCESS'
 export const SIGNUP_STORE_FAILURE='SIGNUP_STORE_FAILURE'
 
+export const dummpyStoreFaker=(number)=>Array(number).fill().map(()=>({
+    storeId:shortId.generate(),
+    storeName:faker.name.findName(),
+    storeAddress:faker.name.findName()
+}))
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
     switch (action.type) {

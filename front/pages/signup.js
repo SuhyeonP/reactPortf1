@@ -13,7 +13,7 @@ const Signup = () => {
     const [id, onChangeId] = useInput('');
     const [name, onChangeName] = useInput('');
     const [password, onChangePassword] = useInput('');
-    const { signUpLoading, me } = useSelector((state) => state.user);
+    const { signUpLoading, me ,signUpDone} = useSelector((state) => state.user);
     const dispatch=useDispatch()
 
     useEffect(() => {
@@ -22,6 +22,12 @@ const Signup = () => {
             Router.push('/');
         }
     }, [me && me.id]);
+
+    useEffect(() => {
+        if (signUpDone) {
+            Router.replace('/');
+        }
+    }, [signUpDone]);
 
     const onSubmit = useCallback(() => {
         if (password !== passwordCheck) {

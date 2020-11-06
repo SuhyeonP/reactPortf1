@@ -23,6 +23,7 @@ const Profile = () => {
             </Head>
             <div>내 프로필</div>
             <div>review write</div>
+            <h2> 아직 미완성입니다. 개발중입니다.</h2>
             <FollowList header="팔로잉 목록" data={me.FollowingStore} />
         </AppLayout>
     )
