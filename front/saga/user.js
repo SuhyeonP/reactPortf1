@@ -8,12 +8,6 @@ import{
     LOG_OUT_REQUEST,
     LOG_OUT_SUCCESS,
     LOG_OUT_FAILURE,
-    FOLLOW_USER_REQUEST,
-    FOLLOW_USER_SUCCESS,
-    FOLLOW_USER_FAILURE,
-    UNFOLLOW_USER_REQUEST,
-    UNFOLLOW_USER_SUCCESS,
-    UNFOLLOW_USER_FAILURE,
     FOLLOW_STORE_REQUEST,
     FOLLOW_STORE_SUCCESS,
     FOLLOW_STORE_FAILURE,
@@ -108,47 +102,6 @@ function* followStore(action) {
     }
 }
 
-function followAPI() {
-    return axios.post('/api/follow');
-}
-
-function* follow(action) {
-    try {
-        // const result = yield call(followAPI);
-        yield delay(1000);
-        yield put({
-            type: FOLLOW_USER_SUCCESS,
-            data: action.data,
-        });
-    } catch (err) {
-        console.error(err);
-        yield put({
-            type: FOLLOW_USER_FAILURE,
-            error: err.response.data,
-        });
-    }
-}
-
-function unfollowAPI() {
-    return axios.post('/api/unfollow');
-}
-
-function* unfollow(action) {
-    try {
-        // const result = yield call(unfollowAPI);
-        yield delay(1000);
-        yield put({
-            type: UNFOLLOW_USER_SUCCESS,
-            data: action.data,
-        });
-    } catch (err) {
-        console.error(err);
-        yield put({
-            type: UNFOLLOW_USER_FAILURE,
-            error: err.response.data,
-        });
-    }
-}
 function unfollowStoreAPI() {
     return axios.post('/api/unfollowStore');
 }
@@ -171,16 +124,6 @@ function* unfollowStore(action) {
 }
 
 
-
-
-function* watchFollow() {
-    yield takeLatest(FOLLOW_USER_REQUEST, follow);
-}
-
-function* watchUnfollow() {
-    yield takeLatest(UNFOLLOW_USER_REQUEST, unfollow);
-}
-
 function* watchStoreUnfollow() {
     yield takeLatest(UNFOLLOW_STORE_REQUEST, unfollowStore);
 }
@@ -190,6 +133,7 @@ function* watchStoreFollow() {
 }
 
 function* watchLogIn() {
+    console.log('here is watchLogin saga')
     yield takeLatest(LOG_IN_REQUEST, logIn);
 }
 
@@ -205,8 +149,6 @@ export default function* userSaga() {
     yield all([
         fork(watchStoreFollow),
         fork(watchStoreUnfollow),
-        fork(watchFollow),
-        fork(watchUnfollow),
         fork(watchLogIn),
         fork(watchLogOut),
         fork(watchSignUp),

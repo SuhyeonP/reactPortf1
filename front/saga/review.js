@@ -1,5 +1,4 @@
 import axios from 'axios';
-import shortId from 'shortid';
 import { all, delay, fork, put, takeLatest, throttle } from 'redux-saga/effects';
 
 import {
@@ -12,7 +11,7 @@ import {
     REMOVE_REVIEWS_FAILURE,
     REMOVE_REVIEWS_REQUEST,
     REMOVE_REVIEWS_SUCCESS,
-} from '../reducers/Reviews';
+} from '../reducers/review';
 
 
 function loadReviewsAPI(data) {

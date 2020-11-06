@@ -1,12 +1,6 @@
 import produce from '../util/produce';
 
 export const initialState={
-    followLoading:false,
-    followDone:false,
-    followError:null,
-    unfollowLoading:false,
-    unfollowDone:false,
-    unfollowError:null,
     followStoreLoading:false,
     followStoreDone:false,
     followStoreError:null,
@@ -32,14 +26,6 @@ export const LOG_OUT_REQUEST='LOG_OUT_REQUEST'
 export const LOG_OUT_SUCCESS='LOG_OUT_SUCCESS'
 export const LOG_OUT_FAILURE='LOG_OUT_FAILURE'
 
-export const UNFOLLOW_USER_REQUEST='UNFOLLOW_USER_REQUEST'
-export const UNFOLLOW_USER_SUCCESS='UNFOLLOW_USER_SUCCESS'
-export const UNFOLLOW_USER_FAILURE='UNFOLLOW_USER_FAILURE'
-
-export const FOLLOW_USER_REQUEST='FOLLOW_USER_REQUEST'
-export const FOLLOW_USER_SUCCESS='FOLLOW_USER_SUCCESS'
-export const FOLLOW_USER_FAILURE='FOLLOW_USER_FAILURE'
-
 export const FOLLOW_STORE_REQUEST='FOLLOW_STORE_REQUEST'
 export const FOLLOW_STORE_SUCCESS='FOLLOW_STORE_SUCCESS'
 export const FOLLOW_STORE_FAILURE='FOLLOW_STORE_FAILURE'
@@ -59,19 +45,18 @@ const dummyUser=(data)=>({
     id:1,
     Reviews:[{id:1}],
     FollowingStore:[{name:'macdonald'},{name:'hansin'},{name:'dentist'}],
-    FollowingUser:[{name:'su'},{name:'hn'},{name:'dtttt'}],
-    FollowerUser:[{name:'suyomi'},{name:'backjong'},{name:'shef'}],
 })
-const dummyUser2=(data)=>({
+
+const dummyStore=(data)=>({
     ...data,
-    isLoggedIn:false,
-    name:'test2',
-    id:2,
-    Reviews:[{id:1}],
-    FollowingStore:[{name:'lonald'},{name:'hansin'},{name:'dentist'}],
-    FollowingUser:[{name:'sudf'},{name:'hn'},{name:'dtttt'}],
-    FollowerUser:[{name:'yomi'},{name:'b100'},{name:'shef'}],
+    storeId:1,
+    storeName:'Store1',
+    storeEmail:'hihi@test.test',
+    storeAddress:'where is address',
+    storePart:"hospital",
+    followUser:[],
 })
+
 export const loginRequestAction = (data) => ({
     type: LOG_IN_REQUEST,
     data,
@@ -81,38 +66,7 @@ export const logoutRequestAction = () => ({
     type: LOG_OUT_REQUEST,
 });
 const reducer=(state=initialState,action)=>produce(state,(draft)=>{
-    switch (action.type){//user follow
-        case FOLLOW_USER_REQUEST:
-            draft.followLoading=true;
-            draft.followError=null;
-            draft.followDone=false;
-            break;
-        case FOLLOW_USER_SUCCESS:
-            draft.followLoading=false;
-            draft.followDone=true;
-            draft.me.FollowingUser.push({ id: action.data });
-            break;
-        case FOLLOW_USER_FAILURE:
-            draft.followError=action.error;
-            draft.followLoading=false;
-            break;
-
-//user unfollow
-        case UNFOLLOW_USER_REQUEST:
-            draft.unfollowLoading=true;
-            draft.unfollowError=null;
-            draft.unfollowDone=false;
-            break;
-        case UNFOLLOW_USER_SUCCESS:
-            draft.unfollowLoading=false;
-            draft.unfollowDone=true;
-            draft.me.FollowingUser=draft.me.FollowerUser.filter((v)=>v.id!==action.data);
-            break;
-        case UNFOLLOW_USER_FAILURE:
-            draft.unfollowError=action.error;
-            draft.unfollowLoading=false;
-            break;
-
+    switch (action.type){
 //store follow
         case FOLLOW_STORE_REQUEST:
             draft.followStoreLoading=true;
@@ -161,13 +115,13 @@ const reducer=(state=initialState,action)=>produce(state,(draft)=>{
             break;
 //login
         case LOG_IN_REQUEST:
-            console.log('here is login request')
+            console.log('here is login request from reducer')
             draft.logInLoading = true;
             draft.logInError = null;
             draft.logInDone = false;
             break;
         case LOG_IN_SUCCESS:
-            console.log('here is login success')
+            console.log('here is login success from reducer')
             draft.logInLoading = false;
             draft.me = dummyUser(action.data);
             draft.logInDone = true;
@@ -178,11 +132,13 @@ const reducer=(state=initialState,action)=>produce(state,(draft)=>{
             break;
             //logout
         case LOG_OUT_REQUEST:
+            console.log('here is logout request')
             draft.logOutLoading = true;
             draft.logOutError = null;
             draft.logOutDone = false;
             break;
         case LOG_OUT_SUCCESS:
+            console.log('here is logout success bye~')
             draft.logOutLoading = false;
             draft.logOutDone = true;
             draft.me = null;

@@ -16,12 +16,15 @@ const dummyStore2={
 }
 
 const StoreCard=()=>{
-    const [storeImg]=useState(dummyStore2.imgSrc);
+
+    //이미지나 store title clickevent make todo
+
+    const [storeImg]=useState(dummyStore.imgSrc);
     return(
-        <Card  className="storeCard" cover={
+        <Card className="storeCard" cover={
             storeImg==null?<img className="mainCardImgage" alt="example" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDA1MjVfMjc3%2FMDAxNTkwMzQxMTc0NDEz.gmkMJ4RYGYyXpEbVn90GPeA4Lz_6cmUL2_ysgrwXqMAg.4VTdLCmMAlFkbH7yF6fXnC61_AtnL2ZZ_GHp-e_kd3Mg.JPEG.taughtl7%2F1590341173518.jpg&type=sc960_832" />
                 :<img className="mainCardImgage" src={storeImg}/>}>
-            <Card.Meta className="store-title" title={dummyStore2.storeTitle}
+            <Card.Meta className="store-title" title={dummyStore.storeTitle}
                        description={dummyStore2.storeAddress}>
             </Card.Meta>
         </Card>

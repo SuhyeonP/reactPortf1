@@ -9,7 +9,7 @@ const MiniGame = () => {
     return(
         <AppLayout>
             <Head>
-                <title>MiniGame</title>
+                <title>MiniGame|PortFolio</title>
             </Head>
             <h1 className="main-title">This is my portfolio </h1>
             <section className="gameSection">

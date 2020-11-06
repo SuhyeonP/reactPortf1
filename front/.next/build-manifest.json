@@ -33,6 +33,16 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/minigame.js"
+    ],
+    "/store": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/store.js"
+    ],
+    "/withUs": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/withUs.js"
     ]
   },
   "ampFirstPages": []

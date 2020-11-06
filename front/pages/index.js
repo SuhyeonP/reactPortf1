@@ -5,7 +5,7 @@ import StoreCard from '../components/StoreCard';
 
 
 const Home = () => {
-
+//todo click event adv img link
     return(
         <AppLayout>
             <Head>

@@ -10,8 +10,7 @@ import UserProfile from './UserProfile';
 
 
 const AppLayout = ({ children }) => {
-    const {isLoggedIn}=useSelector((state)=>state.user);
-
+    const {me}=useSelector((state)=>state.user);
 
     const onChangeWord=useCallback(()=>{
         let insideWord=document.getElementById('menutem').innerText;
@@ -21,6 +20,7 @@ const AppLayout = ({ children }) => {
             document.getElementById('menutem').innerText='Mini Game';
         }
     },[])
+
     return (
         <div>
             <Menu mode="horizontal">
@@ -35,7 +35,9 @@ const AppLayout = ({ children }) => {
                     {children}
                 </Col>
                 <Col xs={24} md={6}>
-                    {isLoggedIn ? <UserProfile/>  : <LoginForm/>}
+                    {me
+                        ? <UserProfile />
+                        : <LoginForm />}
                 </Col>
             </Row>
         </div>

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
 import { Button, Form, Input } from 'antd';
 
 import AppLayout from '../components/AppLayout';
 import useInput from '../hooks/useInput';
+import {useDispatch, useSelector} from "react-redux";
+import {SIGNUP_STORE_REQUEST} from "../reducers/store";
+
 
 const withUs = () => {
     const [storeName, onChangeStoreName] = useInput('');
@@ -12,18 +15,40 @@ const withUs = () => {
     const [storeEmail,onChaneEmail]=useInput('');
     const [storeAddress,onChangeAddress]=useInput('');
     const [storePart,onChangePart]=useInput('');
+    const {signupStoreLoading}=useSelector((state)=>state.store)
+    const dispatch=useDispatch()
+    const [passwordError, setPasswordError] = useState(false);
+    const [passwordCheck, setPasswordCheck] = useState('');
 
-    const onSubmit = () => {
+    const onPasswordCheck=useCallback((e)=>{
+        setPasswordError(e.target.value !== password);
+        setPasswordCheck(e.target.value);
+    },[password])
+
+
+    const onSubmit = useCallback(() => {
         console.log({ storeName, password ,storeEmail, storeAddress,storePart});
+        if (password !== passwordCheck) {
+            alert('return password check')
+            return;
+        }
         let yesorno=confirm(`가게이름:${storeName}으로 신청하는게 맞으십니까?`)
         if(yesorno){
-            alert('신청이 완료되었습니다. 이메일로 알려드리겠습니다.')
-            return  Router.push('/');
+            return dispatch({
+                type:SIGNUP_STORE_REQUEST,
+                data:{
+                    storeAddress,
+                    storeName,
+                    storePart,
+                    storeEmail,
+                    password
+                }
+            })
         }else{
             alert('취소하셨습니다. 이전으로 돌아갑니다.');
             return ;
         }
-    };
+    },[storeEmail,storePart,storeName,storeAddress,password]);
 
 
     return (
@@ -49,17 +74,23 @@ const withUs = () => {
                         <Input name="storeAddress" type="address" value={storeAddress} required onChange={onChangeAddress} />
                     </div>
                     <div>
-                        <label htmlFor="user-password">비밀번호</label>
+                        <label htmlFor="password">비밀번호</label>
                         <br />
-                        <Input name="user-password" type="password" value={password} required onChange={onChangePassword} />
+                        <Input name="password" type="password" value={password} required onChange={onChangePassword} />
                     </div>
+                    <div>
+                        <label htmlFor="passwordch">비밀번호 check</label>
+                        <br />
+                        <Input name="passwordch" type="password" value={passwordCheck} required onChange={onPasswordCheck} />
+                    </div>
+                    {passwordError && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
                     <div>
                         <label htmlFor="storePart">분야</label>
                         <p>ex)병원 , 식당 , 영화관 , 사진관 , 뷰티 , 체험 , ... </p>
                         <Input name="storePart" value={storePart} required onChange={onChangePart} />
                     </div>
                     <div className="StorelastButton">
-                        <Button type="primary" htmlType="submit" className="withJoin">입점하기</Button>
+                        <Button type="primary" loading={signupStoreLoading} htmlType="submit" className="withJoin">입점하기</Button>
                     </div>
                 </Form>
             </AppLayout>

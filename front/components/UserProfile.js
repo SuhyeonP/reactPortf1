@@ -4,11 +4,11 @@ import {useDispatch} from "react-redux";
 import {logoutRequestAction} from "../reducers/user";
 
 const dummy = {
-    nickname: 'testdd',
-    Posts: [],
-    Followings: [],
-    Followers: [],
-    isLoggedIn: false,
+    isLoggedIn:false,
+    name:'test',
+    id:1,
+    Reviews:[{id:1}],
+    FollowingStore:[{name:'macdonald'},{name:'hansin'},{name:'dentist'}],
 };
 
 const UserProfile = () => {
@@ -21,13 +21,12 @@ const UserProfile = () => {
     return (
         <Card
             actions={[
-                <div key="twit">리뷰<br/>{dummy.Posts.length}</div>,
-                <div key="following">팔로잉<br/>{dummy.Followings.length}</div>,
-                <div key="follower">팔로워<br/>{dummy.Followers.length}</div>,
+                <div key="review">리뷰<br/>{dummy.Reviews.length}</div>,
+                <div key="following">팔로잉<br/>{dummy.FollowingStore.length}</div>
             ]}>
             <Card.Meta
-                avatar={<Avatar>{dummy.nickname[0]}</Avatar>}
-                title={dummy.nickname}/>
+                avatar={<Avatar>{dummy.name[0]}</Avatar>}
+                title={dummy.name}/>
             <Button onClick={onLogout}>로그아웃</Button>
         </Card>
     );
