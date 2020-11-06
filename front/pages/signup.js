@@ -13,7 +13,7 @@ const Signup = () => {
     const [id, onChangeId] = useInput('');
     const [name, onChangeName] = useInput('');
     const [password, onChangePassword] = useInput('');
-    const { signUpLoading, me ,signUpDone} = useSelector((state) => state.user);
+    const { signUpLoading, me ,signUpDone,signUpError} = useSelector((state) => state.user);
     const dispatch=useDispatch()
 
     useEffect(() => {
@@ -29,6 +29,12 @@ const Signup = () => {
         }
     }, [signUpDone]);
 
+    useEffect(() => {
+        if (signUpError) {
+            alert(signUpError);
+        }
+    }, [signUpError]);
+
     const onSubmit = useCallback(() => {
         if (password !== passwordCheck) {
             setPasswordError(true);
@@ -43,11 +49,7 @@ const Signup = () => {
         });
         return dispatch({
             type: SIGN_UP_REQUEST,
-            data: {
-                name,
-                password,
-                id,
-            },
+            data: { name, password, id, },
         });
     },[name,id,password,passwordCheck]);
 
